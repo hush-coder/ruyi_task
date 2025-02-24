@@ -1,0 +1,28 @@
+[buildroot-sdk-milkv-duo256m-python]
+source = "github"
+github = "milkv-duo/duo-buildroot-sdk"
+filter = "Duo-V(.*)"
+use_max_tag = true
+
+[wps-office]
+source = "github"
+name = "wps-office"
+# 仓库和路径配置
+github = "ruyisdk/packages-index"
+path = "manifests/extra/wps-office"  # TOML 文件所在路径
+branch = "main"                      # 明确指定分支
+filter = ".*.toml"                   # 匹配所有 TOML 文件
+# 从 TOML 文件内容提取版本（关键修改）
+version_pattern = '''
+  \[distfiles\.fetch_restriction\.params\]  # 匹配该节
+  \s*version\s*=\s*"(\d+\.\d+\.\d+\.\d+)"   # 提取 version 字段值
+'''
+
+[revyos-sg2042-milkv-pioneer]
+source = "cmd"
+cmd = '''
+curl -sL https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/ \
+    | grep -oP '<a href="\K\d{8}(?=/)' \
+    | sort -Vr \
+    | head -n1
+'''

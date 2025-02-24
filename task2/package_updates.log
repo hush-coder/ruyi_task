@@ -1,0 +1,39 @@
+{
+  "timestamp": "2024-02-24T19:00:00.123Z",
+  "level": "INFO",
+  "package": "revyos-sg2042-milkv-pioneer",
+  "version": "20241230",
+  "url": "N/A",
+  "config": {
+    "source": "cmd",
+    "cmd": "curl -sL https://mirror.iscas.ac.cn/revyos/extra/images/sg2042/ | grep -oP '<a href=\"\\K\\d{8}(?=/)' | sort -Vr | head -n1"
+  }
+}
+
+{
+  "timestamp": "2024-02-24T19:00:00.123Z",
+  "level": "INFO",
+  "package": "buildroot-sdk-milkv-duo256m-python",
+  "version": "20230807",
+  "url": "https://github.com/milkv-duo/duo-buildroot-sdk/releases/tag/20230807",
+  "config": {
+    "source": "github",
+    "github": "milkv-duo/duo-buildroot-sdk",
+    "filter": "Duo-V(.*)",
+    "use_max_tag": true
+  }
+}
+
+{
+  "timestamp": "2024-02-24T19:00:00.123Z",
+  "level": "INFO",
+  "package": "wps-office",
+  "version": "20241216.054501",
+  "url": "https://github.com/ruyisdk/packages-index/commit/2325d5d9c3155cfc195dc9f3f8982b7d4aadb0b4",
+  "config": {
+    "source": "github",
+    "name": "wps-office",
+    "github": "ruyisdk/packages-index",
+    "path": "manifests/extra/wps-office"
+    }
+}
