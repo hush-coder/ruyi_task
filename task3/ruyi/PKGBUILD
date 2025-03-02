@@ -1,0 +1,30 @@
+pkgname=ruyi
+pkgver=0.26.0
+pkgrel=1
+pkgdesc="A software distribution bootstrap tool for Arch Linux"
+arch=('any')
+url="https://github.com/ruyisdk/ruyi"
+license=('GPL3')
+depends=('python' 'python-requests' 'python-rich' 'python-ruamel-yaml')
+makedepends=('python-build' 'python-installer' 'python-wheel')
+source=(
+  "https://github.com/ruyisdk/ruyi/archive/refs/tags/${pkgver}.tar.gz"  # 修正后的URL
+  "fix-pyproject.patch"
+)
+sha512sums=('fc6ece18b22ffaf55ee8202d472f13197600045803b91939e61edfc9b005c0755dc998dc1932f8d46e94925e33c11e6e579136d4fdc889bb513ac02a26c2ce39'
+            'b248124096ed73cddde911e6e2cc2356e2a269cee775c942dca89b1839ddc12c0378e176b46f2cb6fc8054df9d8f327eb2ff3c8bd8c05306f342e4584269ff2c')
+
+prepare() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  patch -p1 -i "${srcdir}/fix-pyproject.patch"
+}
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+}
