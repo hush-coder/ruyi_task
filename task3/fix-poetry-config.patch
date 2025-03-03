@@ -1,0 +1,16 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 17b815b..5db6459 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -54,6 +54,11 @@ issues = "https://github.com/ruyisdk/ruyi/issues"
+ repository = "https://github.com/ruyisdk/ruyi.git"
+ 
+ [tool.poetry]
++name = "ruyi"
++version = "0.26.0"
++description = "RuyiSDK development environment manager"
++authors = ["Ruyi Team <contact@ruyi.dev>"]
++license = "MIT"
+ include = ["ruyi/py.typed"]
+ 
+ [tool.poetry.group.dev.dependencies]

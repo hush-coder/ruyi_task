@@ -1,0 +1,41 @@
+# Maintainer: Your Name <your.email@example.com>
+pkgname=ruyi
+pkgver=0.26.0
+pkgrel=1
+pkgdesc="RuyiSDK development environment manager"
+arch=('x86_64')
+url="https://github.com/ruyisdk/ruyi"
+license=('MIT')
+depends=(
+    'python'
+    'python-poetry'
+    'python-requests'
+    'python-rich'
+    'python-pygit2'
+)
+makedepends=('git' 'python-build' 'python-installer')
+source=(
+    "$pkgname-$pkgver.tar.gz::https://github.com/ruyisdk/ruyi/archive/$pkgver.tar.gz"
+    "config.toml"
+    "fix-poetry-config.patch"
+)
+sha512sums=('fc6ece18b22ffaf55ee8202d472f13197600045803b91939e61edfc9b005c0755dc998dc1932f8d46e94925e33c11e6e579136d4fdc889bb513ac02a26c2ce39'
+            'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e'
+            'bf307ff321b9747c30bca22bc84f7ae877107675608c5ab747ee03d2186c561658523fb44f3fa97e39a74a123ed0bd607517ee1db2c476bd38a80b09ae67dcf7')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  # 应用补丁
+  patch -Np1 -i "../fix-poetry-config.patch"
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+  install -Dm644 ../config.toml "$pkgdir/etc/ruyi/config.toml"
+}
